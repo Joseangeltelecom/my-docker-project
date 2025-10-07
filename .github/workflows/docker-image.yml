@@ -38,11 +38,12 @@ jobs:
         docker ps
 
     - name: Test container response
+      shell: bash
       run: |
         echo "Testing /health endpoint for expected response..."
         RESPONSE=$(curl -s http://localhost:8080/health)
         echo "Response: $RESPONSE"
-        grep "Hello, CI Pipeline!" <<< "$RESPONSE"
+        echo "$RESPONSE" | grep "Hello, CI Pipeline!"
 
     - name: Save container logs
       if: always()
