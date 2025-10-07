@@ -17,6 +17,8 @@ app.get('/greet', (req, res) => {
   });
 });
 
+app.get('/health', (req, res) => res.send('Hello, CI Pipeline!'));
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Access to: http://localhost:${PORT}`);
