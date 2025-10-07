@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
   res.json({
@@ -17,7 +17,13 @@ app.get('/greet', (req, res) => {
   });
 });
 
-app.get('/health', (req, res) => res.send('Hello, CI Pipeline!'));
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    message: 'Hello, CI Pipeline!',
+    timestamp: new Date().toISOString()
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

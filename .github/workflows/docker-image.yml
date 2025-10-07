@@ -43,7 +43,7 @@ jobs:
         echo "Testing /health endpoint for expected response..."
         RESPONSE=$(curl -s http://localhost:8080/health)
         echo "Response: $RESPONSE"
-        echo "$RESPONSE" | grep "Hello, CI Pipeline!"
+        echo "$RESPONSE" | grep '"status":"OK"' && echo "$RESPONSE" | grep "Hello, CI Pipeline!"
 
     - name: Save container logs
       if: always()
