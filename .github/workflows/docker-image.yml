@@ -42,12 +42,12 @@ jobs:
         echo "Testing /health endpoint for expected response..."
         RESPONSE=$(curl -s http://localhost:8080/health)
         echo "Response: $RESPONSE"
-        echo "$RESPONSE" | grep "Hello, CI Pipeline!" || (echo "Expected response not found!" && exit 1)
+        grep "Hello, CI Pipeline!" <<< "$RESPONSE"
 
     - name: Save container logs
       if: always()
       run: |
-        docker logs "${{ vars.CONTAINER_NAME }}" > container-logs.txt || true
+        docker logs "${{ vars.CONTAINER_NAME }}" > container-logs.txt
 
     - name: Upload logs as artifact
       if: always()
@@ -60,6 +60,6 @@ jobs:
       if: always()
       run: |
         echo "Cleaning up..."
-        docker stop "${{ vars.CONTAINER_NAME }}" || true
-        docker rm "${{ vars.CONTAINER_NAME }}" || true
-        docker rmi "${{ vars.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }}" || true
+        docker stop "${{ vars.CONTAINER_NAME }}"
+        docker rm "${{ vars.CONTAINER_NAME }}"
+        docker rmi "${{ vars.DOCKER_USERNAME }}/${{ vars.IMAGE_NAME }}:${{ vars.IMAGE_TAG }}"
